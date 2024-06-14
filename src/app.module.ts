@@ -5,11 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { PassportModule } from '@nestjs/passport';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import { MemberModule } from './member/member.module';
 import { BookModule } from './book/book.module';
 import { LoanModule } from './loan/loan.module';
+import { BookTransactModule } from './book-transact/book-transact.module';
 
 @Module({
   imports: [
@@ -20,6 +19,7 @@ import { LoanModule } from './loan/loan.module';
     MemberModule,
     BookModule,
     LoanModule,
+    BookTransactModule,
   ],
   controllers: [AppController],
   providers: [AppService],
