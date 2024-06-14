@@ -12,6 +12,9 @@ export class Member {
   @Prop()
   name: string;
 
+  @Prop()
+  penalty_due_date: Date | null;
+
 }
 
 export const MemberSchema = SchemaFactory.createForClass(Member);

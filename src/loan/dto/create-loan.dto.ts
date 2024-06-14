@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMaxSize, ArrayNotEmpty, Validate, ValidateNested } from 'class-validator';
-import { MustBeRegisteredBook, MustBeRegisteredMember } from '../loan.custom.validation';
+import { MemberNotPenalized, MustBeRegisteredBook, MustBeRegisteredMember } from '../loan.custom.validation';
 import { Type } from 'class-transformer';
 
 class BookLoaned {
@@ -11,20 +11,17 @@ class BookLoaned {
 
 export class CreateLoanDto {
 
-  @ApiProperty()
   code: string;
 
   @ApiProperty()
   @Validate(MustBeRegisteredMember)
+  @Validate(MemberNotPenalized)
   member_code: string;
 
-  @ApiProperty()
   loan_date: Date;
 
-  @ApiProperty()
   due_date: Date;
 
-  @ApiProperty()
   return_date: Date;
 
   @ApiProperty({ type: [BookLoaned]})

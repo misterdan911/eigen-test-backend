@@ -4,7 +4,7 @@ import { LoanController } from './loan.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { LoanSchema } from './loan.schema';
 import { MemberModule } from 'src/member/member.module';
-import { MustBeRegisteredBook, MustBeRegisteredMember } from './loan.custom.validation';
+import { MemberNotPenalized, MustBeRegisteredBook, MustBeRegisteredMember } from './loan.custom.validation';
 import { BookModule } from 'src/book/book.module';
 
 
@@ -19,6 +19,7 @@ import { BookModule } from 'src/book/book.module';
     LoanService,
     MustBeRegisteredMember,
     MustBeRegisteredBook,
+    MemberNotPenalized,
   ],
 })
 export class LoanModule { }
