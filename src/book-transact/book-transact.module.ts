@@ -3,7 +3,7 @@ import { BookTransactService } from './book-transact.service';
 import { BookTransactController } from './book-transact.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { BookTransactSchema } from './book-transact.schema';
-import { CannotLoanBorrowedBook, MustBeRegisteredBookCopy, MustBeRegisteredMember } from './book-transact.custom.validation';
+import { CannotLoanBorrowedBook, MemberNotPenalized, MustBeRegisteredBookCopy, MustBeRegisteredMember } from './book-transact.custom.validation';
 import { MemberModule } from 'src/member/member.module';
 import { BookModule } from 'src/book/book.module';
 
@@ -17,6 +17,7 @@ import { BookModule } from 'src/book/book.module';
   providers: [
     BookTransactService,
     MustBeRegisteredMember,
+    MemberNotPenalized,
     MustBeRegisteredBookCopy,
     CannotLoanBorrowedBook
   ],

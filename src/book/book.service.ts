@@ -36,10 +36,25 @@ export class BookService {
     return await this.bookCopyModel.updateOne({ code: bookCopyCode }, { $set: { loaned_to: memberCode, loan_due_date: dateAfter7Days } });
   }
 
-  async findBookCopyByCode(code: string) {
-    return await this.bookCopyModel.findOne({ code: code });
-
+  async unsetLoanToAndLoanDueDate(bookCopyCode: string) {
+    return await this.bookCopyModel.updateOne({ code: bookCopyCode }, { $unset: { loaned_to: "", loan_due_date: "" } });
   }
 
+  async findBookCopyByCode(code: string) {
+    return await this.bookCopyModel.findOne({ code: code });
+  }
+
+  async checkIfReturnedBookValid(bookCopyCode: string, memberCode: string): Promise<boolean> {
+    let result = await this.bookCopyModel.findOne({ code: bookCopyCode, loaned_to: memberCode });
+
+    // console.log('code', result.code);
+    // console.log('book_code', result.book_code);
+
+    if (result) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }

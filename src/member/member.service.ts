@@ -16,5 +16,8 @@ export class MemberService {
     return await this.memberModel.findOne({code: code});
   }
 
+  async updateOne(updateBy: { code: string; }, fieldToUpdate: { penalty_due_date: Date; }) {
+    return await this.memberModel.updateOne(updateBy, { $set: fieldToUpdate });
+  }
 
 }
