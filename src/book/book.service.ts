@@ -14,7 +14,41 @@ export class BookService {
   ) { }
 
   async findAll() {
-    return await this.bookModel.find();
+
+    const books = await this.bookModel.aggregate([
+      {
+        $lookup: {
+          from: 'bookcopies', // The collection name of BookCopy
+          localField: 'code',
+          foreignField: 'book_code',
+          as: 'copies',
+        },
+      },
+      {
+        $addFields: {
+          stock_available: {
+            $size: {
+              $filter: {
+                input: '$copies',
+                as: 'copy',
+                cond: { $eq: [{ $type: '$$copy.loaned_to' }, 'missing'] },
+              },
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          code: 1,
+          title: 1,
+          stock: 1,
+          stock_available: 1,
+        },
+      },
+    ]);
+
+    return books;    
   }
 
   async findByCode(code: string) {

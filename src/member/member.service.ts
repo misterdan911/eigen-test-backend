@@ -9,7 +9,35 @@ export class MemberService {
   constructor(@InjectModel('Member') private readonly memberModel: Model<Member>) { }
 
   async findAll() {
-    return await this.memberModel.find();
+
+    const books = await this.memberModel.aggregate([
+      {
+        $lookup: {
+          from: 'bookcopies', // The collection name of BookCopy
+          localField: 'code',
+          foreignField: 'loaned_to',
+          as: 'copies',
+        },
+      },
+      {
+        $addFields: {
+          borrowed_book: {
+            $size: '$copies',
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          code: 1,
+          title: 1,
+          stock: 1,
+          borrowed_book: 1,
+        },
+      },
+    ]);
+
+    return books;    
   }
 
   async findByCode(code: string) {
