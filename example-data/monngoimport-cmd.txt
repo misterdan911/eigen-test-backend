@@ -1,0 +1,2 @@
+mongoimport --db eigen_interview_test --collection books --file C:\Users\Asusa\Desktop\json\books.json --jsonArray
+mongoimport --db eigen_interview_test --collection bookcopies --file C:\Users\Asusa\Desktop\json\bookcopies.json --jsonArray
