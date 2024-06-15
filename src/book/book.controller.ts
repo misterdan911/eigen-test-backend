@@ -18,16 +18,5 @@ export class BookController {
     });
   }
 
-  @Post('createBookCopy')
-  async createBookCopy(@Res() res: Response, @Body() createBookCopyDto: CreateBookCopyDto) {
-    let data = await this.bookService.createCopy(createBookCopyDto);
-
-    res.status(HttpStatus.OK).send({
-      status: 'success',
-      data: data,
-    });
-  }
-
-
 
 }
